@@ -1,4 +1,4 @@
-
+#pragma once
 #include <Arduino.h>
 
 bool ioBlink = false;
@@ -8,71 +8,93 @@ int rndTemp = 0;
 // -------------------------------------------------------------------
 // Turn off a LED/Relay/Actuator
 // -------------------------------------------------------------------
-void setOffSingle(int _pin){
-    digitalWrite(_pin, LOW); // 0
+void setOffSingle(int _pin)
+{
+  digitalWrite(_pin, LOW); // 0
 }
 // -------------------------------------------------------------------
 // Turn on a LED/Relay/Actuator
 // -------------------------------------------------------------------
-void setOnSingle(int _pin){
-    digitalWrite(_pin, HIGH); // 1
+void setOnSingle(int _pin)
+{
+  digitalWrite(_pin, HIGH); // 1
 }
 // -------------------------------------------------------------------
 // Turn on/off a LED/Relay/Actuator based on state
 // -------------------------------------------------------------------
-void setOnOffSingle(int _pin, bool status){
-    if(status){
-        digitalWrite(_pin, HIGH); 
-    }else{
-        digitalWrite(_pin, LOW);
-    }          
+void setOnOffSingle(int _pin, bool status)
+{
+  if (status)
+  {
+    digitalWrite(_pin, HIGH);
+  }
+  else
+  {
+    digitalWrite(_pin, LOW);
+  }
 }
 // -------------------------------------------------------------------
 // Simple blinking function - blink for alarms with variable timing
 // -------------------------------------------------------------------
-void blinkSingle(int speed, int _pin){
-    if((milOld + speed) < millis()){
-        milOld = millis();
-        if(ioBlink == false){
-            digitalWrite(_pin, HIGH);
-            ioBlink = true;
-        }else{
-            digitalWrite(_pin, LOW);
-            ioBlink = false;
-        }
+void blinkSingle(int speed, int _pin)
+{
+  if ((milOld + speed) < millis())
+  {
+    milOld = millis();
+    if (ioBlink == false)
+    {
+      digitalWrite(_pin, HIGH);
+      ioBlink = true;
     }
+    else
+    {
+      digitalWrite(_pin, LOW);
+      ioBlink = false;
+    }
+  }
 }
 // -------------------------------------------------------------------
 // Asynchronous blink with variable on and off times
 // -------------------------------------------------------------------
-void blinkSingleAsy(int timeHigh, int timeLow, int _pin){
-    if(ioBlink == false){
-        if((milOld + timeHigh) < millis()){
-            milOld = millis();
-            digitalWrite(_pin, LOW);
-            ioBlink = true;
-        }
-    }else{
-        if((milOld + timeLow) < millis()){
-            milOld = millis();
-            digitalWrite(_pin, HIGH);
-            ioBlink = false;
-        }
+void blinkSingleAsy(int timeHigh, int timeLow, int _pin)
+{
+  if (ioBlink == false)
+  {
+    if ((milOld + timeHigh) < millis())
+    {
+      milOld = millis();
+      digitalWrite(_pin, LOW);
+      ioBlink = true;
     }
+  }
+  else
+  {
+    if ((milOld + timeLow) < millis())
+    {
+      milOld = millis();
+      digitalWrite(_pin, HIGH);
+      ioBlink = false;
+    }
+  }
 }
 // -------------------------------------------------------------------
 // Blinking with randomized delay (e.g., for TX/RX activity)
 // -------------------------------------------------------------------
-void blinkRandomSingle(int minTime, int maxTime, int _pin){
-    if((milOld + rndTemp) < millis()){
-        milOld = millis();
-        rndTemp = random(minTime, maxTime);
-        if(ioBlink == false){
-            digitalWrite(_pin, HIGH);
-            ioBlink = true;
-        }else{
-            digitalWrite(_pin, LOW);
-            ioBlink = false;
-        }
+void blinkRandomSingle(int minTime, int maxTime, int _pin)
+{
+  if ((milOld + rndTemp) < millis())
+  {
+    milOld = millis();
+    rndTemp = random(minTime, maxTime);
+    if (ioBlink == false)
+    {
+      digitalWrite(_pin, HIGH);
+      ioBlink = true;
     }
+    else
+    {
+      digitalWrite(_pin, LOW);
+      ioBlink = false;
+    }
+  }
 }
